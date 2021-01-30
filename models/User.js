@@ -17,6 +17,20 @@ const userSchema = new Schema({
     },
 })
 
+// HOOKS
+
+// fire a function AFTER doc saved to db
+userSchema.post('save', function (doc, next) {
+    console.log('new user created', doc);
+    next();
+});
+
+// fire a function BEFORE doc saved to db
+userSchema.pre('save', function (next) {
+    console.log('user about to be created', this);
+    next();
+});
+
 const User = model('User', userSchema);
 
 module.exports = User;
