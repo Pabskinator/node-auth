@@ -1,6 +1,9 @@
 const {Schema, model} = require('mongoose');
 const { isEmail } = require('validator');
 
+// 3rd party hashing package
+const bcrypt = require('bcrypt');
+
 const userSchema = new Schema({
     email: {
         type: String,
@@ -26,8 +29,10 @@ userSchema.post('save', function (doc, next) {
 });
 
 // fire a function BEFORE doc saved to db
-userSchema.pre('save', function (next) {
-    console.log('user about to be created', this);
+userSchema.pre('save', async function (next) {
+    // hashing password
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
     next();
 });
 
