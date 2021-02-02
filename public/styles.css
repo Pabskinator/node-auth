@@ -40,6 +40,9 @@ nav li a{
   padding: 10px 16px;
   letter-spacing: 2px;
 }
+nav li .logout {
+  color: crimson;
+}
 .btn{
   border-radius: 36px;
   background: #FEE996;
